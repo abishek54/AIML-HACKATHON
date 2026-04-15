@@ -1,0 +1,25 @@
+[Input Data] 
+   └── 🗺️ High-Res Drone Orthophotos (Gigapixel GeoTIFFs, LZW Compressed)
+        │
+[1. Data Ingestion & Preprocessing]
+   ├── 📦 Mega-Image Loader (tifffile + imagecodecs) -> Bypasses RAM/Pixel limits
+   └── ✂️ Sliding Window Generator -> Slices massive maps into 512x512 patches 
+        │                               (with 16-pixel divisibility padding)
+        │
+[2. Deep Learning Inference Engine]
+   └── 🧠 DeepLabV3+ Architecture
+        ├── 🦴 Backbone: EfficientNet-B0 (Fast, lightweight feature extraction)
+        ├── 🔍 ASPP Module: Captures multi-scale context (from tiny wells to large fields)
+        └── 🎯 Output: 15-Class Granular Prediction Mask (RCC, Tin, Tiled, etc.)
+        │
+[3. Post-Processing & Aggregation]
+   ├── 🧩 Tile Stitching -> Reassembles 512x512 patches back into the Mega-Image
+   └── ⚙️ Semantic Aggregation -> Maps the 15 granular classes into 5 Hackathon deliverables:
+        ├── 🏠 Class 1: Buildings (Consolidated Rooftops)
+        ├── 🛣️ Class 2: Roads (Networks & Centers)
+        ├── 💧 Class 4: Water (Bodies, Lines, Points)
+        └── ⚡ Class 8: Critical Infra (Transformers, Railways)
+        │
+[4. Output & Deliverables]
+   ├── 🖨️ Raw Prediction Masks (.png) -> Machine-readable SVAMITVA blueprints
+   └── 📊 Visual Verification Reports -> 4K alpha-blended overlays for human validation
